@@ -12,7 +12,7 @@
 <body>
 
   <div class="archive-wrapper">
-    <!-- 상단 바 -->
+    <!-- 상단 헤더 -->
     <header class="top-bar">
       <div class="logo">
         <a href="javascript:void(0)" onclick="switchTab('index')">145oo404<span class="cursor">_</span></a>
@@ -74,13 +74,13 @@
             </div>
             <div class="entry-row" onclick="loadTrack(2)">
               <span class="col-no">003</span>
-              <span class="col-title">skip</span>
+              <span class="col-title">skip <span class="audio-tag">AUDIO</span></span>
               <span class="col-format">TRACK</span>
               <span class="col-year">2026</span>
             </div>
             <div class="entry-row" onclick="loadTrack(3)">
               <span class="col-no">004</span>
-              <span class="col-title">못됐어</span>
+              <span class="col-title">못됐어 <span class="audio-tag">AUDIO</span></span>
               <span class="col-format">TRACK</span>
               <span class="col-year">2026</span>
             </div>
@@ -98,12 +98,27 @@
             <span class="view-mode">VIEW MODE: ACTIVE</span>
           </div>
 
+          <!-- 단색 캔버스 아트워크 -->
           <div id="doc-artwork" class="solid-cover">
             <div class="solid-content">
               <span id="art-id" class="art-num">REC_001</span>
               <h3 id="art-title" class="art-name">체리캔들</h3>
               <span id="art-format" class="art-badge">TRACK / 2026</span>
             </div>
+          </div>
+
+          <!-- 오디오 터미널 컨트롤러 -->
+          <div id="player-container" class="audio-player-box" style="display: none;">
+            <div class="player-top">
+              <button id="play-btn" class="play-trigger" onclick="togglePlay()">[ ▶ PLAY STREAM ]</button>
+              <div class="time-display">
+                <span id="curr-time">00:00</span> / <span id="dur-time">00:00</span>
+              </div>
+            </div>
+            <div class="progress-wrap" onclick="seekAudio(event)">
+              <div id="progress-bar" class="progress-fill"></div>
+            </div>
+            <audio id="main-audio" preload="metadata"></audio>
           </div>
 
           <h2 id="doc-title" class="doc-title">체리캔들</h2>
@@ -147,11 +162,11 @@
       </div>
     </div>
 
-    <!-- 2. ABOUT 탭 (MANIFESTO 제거 완료) -->
+    <!-- 2. ABOUT 탭 -->
     <div id="tab-about" class="tab-content">
       <div class="about-grid">
         
-        <!-- 박스 1: SYSTEM IDENTITY & PROFILE -->
+        <!-- 박스 1: IDENTITY -->
         <div class="about-card">
           <div class="panel-header">
             <span>ABOUT / IDENTITY</span>
@@ -183,7 +198,7 @@
           </div>
         </div>
 
-        <!-- 박스 2: SYSTEM ENVIRONMENT & DIRECTORY -->
+        <!-- 박스 2: ENVIRONMENT & CONTACT -->
         <div class="about-card">
           <div class="panel-header">
             <span>SPECIFICATIONS / ENVIRONMENT</span>
@@ -223,7 +238,7 @@
       </div>
     </div>
 
-    <!-- 하단 푸터 -->
+    <!-- 푸터 -->
     <footer class="archive-footer">
       <span>© 2026 145oo404</span>
       <span>ALL RIGHTS RESERVED.</span>
@@ -243,7 +258,8 @@
         credit: "PRODUCER / KEYBOARDS",
         status: "ARCHIVED",
         desc: "Production, sound arrangement, and keyboard performance on 체리캔들.",
-        bg: "#161618"
+        bg: "#161618",
+        audio: null
       },
       {
         id: "002",
@@ -255,33 +271,50 @@
         credit: "PRODUCER / ALL INSTRUMENTS",
         status: "ARCHIVED",
         desc: "Composition, arrangement, and acoustic instrumental layering on 솔직히 나는.",
-        bg: "#121214"
+        bg: "#121214",
+        audio: null
       },
       {
         id: "003",
         title: "skip",
         artist: "145oo404",
-        project: "ARCHIVE RELEASE",
+        project: "GRADUATION PROJECT #3",
         format: "TRACK",
         year: "2026",
         credit: "SYNTHESIZER / ARRANGEMENT",
         status: "ARCHIVED",
         desc: "Experimental beat design, synthesizer programming, and sound textures on skip.",
-        bg: "#1a1a1d"
+        bg: "#1a1a1d",
+        audio: "skip.wav"
       },
       {
         id: "004",
         title: "못됐어",
         artist: "145oo404",
-        project: "ARCHIVE RELEASE",
+        project: "GRADUATION PROJECT #4",
         format: "TRACK",
         year: "2026",
         credit: "PRODUCER / KEYBOARDS",
         status: "ARCHIVED",
-        desc: "Track directing, melodic harmonization, and keyboard session work on 못됐어.",
-        bg: "#141416"
+        desc: "Track directing, melodic harmonization, and vocal arrangement on 못됐어.",
+        bg: "#141416",
+        audio: "not-bad.wav"
       }
     ];
+
+    const audioPlayer = document.getElementById('main-audio');
+    const playBtn = document.getElementById('play-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const currTimeText = document.getElementById('curr-time');
+    const durTimeText = document.getElementById('dur-time');
+    const playerContainer = document.getElementById('player-container');
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return "00:00";
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
 
     function loadTrack(index) {
       const t = tracks[index];
@@ -303,6 +336,22 @@
       document.getElementById('art-title').innerText = t.title;
       document.getElementById('art-format').innerText = `${t.format} / ${t.year}`;
 
+      // 오디오 제어
+      audioPlayer.pause();
+      playBtn.innerText = "[ ▶ PLAY STREAM ]";
+      progressBar.style.width = "0%";
+      currTimeText.innerText = "00:00";
+      durTimeText.innerText = "00:00";
+
+      if (t.audio) {
+        playerContainer.style.display = "block";
+        audioPlayer.src = t.audio;
+        audioPlayer.load();
+      } else {
+        playerContainer.style.display = "none";
+        audioPlayer.src = "";
+      }
+
       const rows = document.querySelectorAll('.entry-row');
       rows.forEach((row, i) => {
         if(i === index) {
@@ -313,6 +362,39 @@
       });
     }
 
+    function togglePlay() {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+        playBtn.innerText = "[ ■ PAUSE STREAM ]";
+      } else {
+        audioPlayer.pause();
+        playBtn.innerText = "[ ▶ PLAY STREAM ]";
+      }
+    }
+
+    audioPlayer.addEventListener('timeupdate', () => {
+      if (audioPlayer.duration) {
+        const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+        currTimeText.innerText = formatTime(audioPlayer.currentTime);
+        durTimeText.innerText = formatTime(audioPlayer.duration);
+      }
+    });
+
+    audioPlayer.addEventListener('ended', () => {
+      playBtn.innerText = "[ ▶ PLAY STREAM ]";
+      progressBar.style.width = "0%";
+      currTimeText.innerText = "00:00";
+    });
+
+    function seekAudio(e) {
+      if (!audioPlayer.duration) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      audioPlayer.currentTime = (clickX / width) * audioPlayer.duration;
+    }
+
     function switchTab(tab) {
       const indexTab = document.getElementById('tab-index');
       const aboutTab = document.getElementById('tab-about');
@@ -320,6 +402,8 @@
       const navAbout = document.getElementById('nav-about');
 
       if (tab === 'about') {
+        audioPlayer.pause();
+        playBtn.innerText = "[ ▶ PLAY STREAM ]";
         indexTab.classList.remove('active');
         aboutTab.classList.add('active');
         navIndex.classList.remove('active');
