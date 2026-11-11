@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>145oo404 — Personal Sound Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="archive-wrapper">
+    <!-- 상단 바 -->
+    <header class="top-bar">
+      <div class="logo">
+        <a href="javascript:void(0)" onclick="switchTab('index')">145oo404<span class="cursor">_</span></a>
+      </div>
+      <nav class="nav-links">
+        <a href="javascript:void(0)" id="nav-index" class="active" onclick="switchTab('index')">INDEX</a>
+        <a href="javascript:void(0)" id="nav-about" onclick="switchTab('about')">ABOUT</a>
+        <a href="mailto:jungpiano77@gmail.com">CONTACT</a>
+      </nav>
+    </header>
+
+    <!-- 상태 표시줄 -->
+    <div class="status-strip">
+      <span>DATABASE / 145oo404</span>
+      <span class="status-online"><span class="dot"></span>PUBLIC ACCESS — ONLINE</span>
+    </div>
+
+    <!-- 타이틀 섹션 -->
+    <section class="archive-intro">
+      <div class="tag">[ PERSONAL SOUND ARCHIVE / EST. 2026 ]</div>
+      <h1 class="main-heading">145oo404<span class="cursor">_</span></h1>
+      <p class="desc">SELECTED WORKS, SONIC DOCUMENTS AND OTHER FRAGMENTS.</p>
+    </section>
+
+    <!-- 1. INDEX 탭 -->
+    <div id="tab-index" class="tab-content active">
+      <div class="archive-grid">
+        
+        <!-- 좌측: 디스코그래피 목록 -->
+        <section class="discography-panel">
+          <div class="panel-header">
+            <span>INDEX / DISCOGRAPHY</span>
+            <span class="count">004 ENTRIES</span>
+          </div>
+
+          <div class="search-bar">
+            <span>&gt; SEARCH</span>
+          </div>
+
+          <div class="table-header">
+            <span class="col-no">NO.</span>
+            <span class="col-title">TITLE</span>
+            <span class="col-format">FORMAT</span>
+            <span class="col-year">YEAR</span>
+          </div>
+
+          <div class="entry-list">
+            <div class="entry-row active" onclick="loadTrack(0)">
+              <span class="col-no">001</span>
+              <span class="col-title">체리캔들</span>
+              <span class="col-format">TRACK</span>
+              <span class="col-year">2026</span>
+            </div>
+            <div class="entry-row" onclick="loadTrack(1)">
+              <span class="col-no">002</span>
+              <span class="col-title">솔직히 나는</span>
+              <span class="col-format">TRACK</span>
+              <span class="col-year">2026</span>
+            </div>
+            <div class="entry-row" onclick="loadTrack(2)">
+              <span class="col-no">003</span>
+              <span class="col-title">skip</span>
+              <span class="col-format">TRACK</span>
+              <span class="col-year">2026</span>
+            </div>
+            <div class="entry-row" onclick="loadTrack(3)">
+              <span class="col-no">004</span>
+              <span class="col-title">못됐어</span>
+              <span class="col-format">TRACK</span>
+              <span class="col-year">2026</span>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            [ END OF INDEX ]
+          </div>
+        </section>
+
+        <!-- 우측: 상세 뷰어 -->
+        <aside class="document-panel">
+          <div class="panel-header">
+            <span id="doc-id">DOCUMENT / 001</span>
+            <span class="view-mode">VIEW MODE: ACTIVE</span>
+          </div>
+
+          <div id="doc-artwork" class="solid-cover">
+            <div class="solid-content">
+              <span id="art-id" class="art-num">REC_001</span>
+              <h3 id="art-title" class="art-name">체리캔들</h3>
+              <span id="art-format" class="art-badge">TRACK / 2026</span>
+            </div>
+          </div>
+
+          <h2 id="doc-title" class="doc-title">체리캔들</h2>
+
+          <div class="doc-meta-table">
+            <div class="meta-row">
+              <span class="meta-label">ARTIST</span>
+              <span id="meta-artist" class="meta-val">145oo404</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">PROJECT</span>
+              <span id="meta-project" class="meta-val">ARCHIVE RELEASE</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">FORMAT</span>
+              <span id="meta-format" class="meta-val">TRACK</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">YEAR</span>
+              <span id="meta-year" class="meta-val">2026</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">CREDIT</span>
+              <span id="meta-credit" class="meta-val">PRODUCER / KEYBOARDS</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">STATUS</span>
+              <span id="meta-status" class="meta-val">ARCHIVED</span>
+            </div>
+          </div>
+
+          <p id="doc-desc" class="doc-caption">
+            Production, sound arrangement, and keyboard performance on 체리캔들.
+          </p>
+
+          <div id="doc-record" class="doc-footer">
+            [ RECORD 001 / 004 ]
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+    <!-- 2. ABOUT 탭 (MANIFESTO 제거 완료) -->
+    <div id="tab-about" class="tab-content">
+      <div class="about-grid">
+        
+        <!-- 박스 1: SYSTEM IDENTITY & PROFILE -->
+        <div class="about-card">
+          <div class="panel-header">
+            <span>ABOUT / IDENTITY</span>
+            <span>SYSTEM RECORD</span>
+          </div>
+          <div class="about-card-body">
+            <div class="record-meta-list" style="margin-bottom: 0;">
+              <div class="record-row">
+                <span class="r-label">NAME</span>
+                <span class="r-val">145oo404</span>
+              </div>
+              <div class="record-row">
+                <span class="r-label">EMAIL</span>
+                <span class="r-val"><a href="mailto:jungpiano77@gmail.com" class="val-link">jungpiano77@gmail.com</a></span>
+              </div>
+              <div class="record-row">
+                <span class="r-label">ROLE</span>
+                <span class="r-val">MUSIC PRODUCER / COMPOSER / SESSION KEYBOARDIST</span>
+              </div>
+              <div class="record-row">
+                <span class="r-label">LOCATION</span>
+                <span class="r-val">SEOUL / ANSEONG, KR</span>
+              </div>
+              <div class="record-row">
+                <span class="r-label">STATUS</span>
+                <span class="r-val highlight">ONLINE — AVAILABLE FOR SESSIONS & PROJECTS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 박스 2: SYSTEM ENVIRONMENT & DIRECTORY -->
+        <div class="about-card">
+          <div class="panel-header">
+            <span>SPECIFICATIONS / ENVIRONMENT</span>
+            <span>INDEX VER 1.0</span>
+          </div>
+          <div class="about-card-body">
+            <div class="record-meta-list">
+              <div class="record-row">
+                <span class="r-label">SYSTEM</span>
+                <span class="r-val">MACOS WORKSTATION</span>
+              </div>
+              <div class="record-row">
+                <span class="r-label">CORE DAW</span>
+                <span class="r-val">LOGIC PRO / ABLETON LIVE / PRO TOOLS</span>
+              </div>
+              <div class="record-row">
+                <span class="r-label">HARDWARE</span>
+                <span class="r-val">KORG MINILOGUE / KEYS / BASS</span>
+              </div>
+              <div class="record-row">
+                <span class="r-label">MONITOR</span>
+                <span class="r-val">EVE AUDIO SC205 / SENNHEISER HD 600</span>
+              </div>
+            </div>
+
+            <div class="contact-box">
+              <p class="section-subhead">[ TRANSMISSION DIRECTORY ]</p>
+              <div class="link-lines">
+                <a href="mailto:jungpiano77@gmail.com" class="terminal-action">&gt; SEND EMAIL: jungpiano77@gmail.com ↗</a>
+                <a href="https://instagram.com" target="_blank" rel="noreferrer" class="terminal-action">&gt; NETWORK: INSTAGRAM ↗</a>
+                <a href="https://youtube.com" target="_blank" rel="noreferrer" class="terminal-action">&gt; MEDIA: YOUTUBE ARCHIVE ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 하단 푸터 -->
+    <footer class="archive-footer">
+      <span>© 2026 145oo404</span>
+      <span>ALL RIGHTS RESERVED.</span>
+      <span>END OF TRANSMISSION_</span>
+    </footer>
+  </div>
+
+  <script>
+    const tracks = [
+      {
+        id: "001",
+        title: "체리캔들",
+        artist: "145oo404",
+        project: "ARCHIVE RELEASE",
+        format: "TRACK",
+        year: "2026",
+        credit: "PRODUCER / KEYBOARDS",
+        status: "ARCHIVED",
+        desc: "Production, sound arrangement, and keyboard performance on 체리캔들.",
+        bg: "#161618"
+      },
+      {
+        id: "002",
+        title: "솔직히 나는",
+        artist: "145oo404",
+        project: "ARCHIVE RELEASE",
+        format: "TRACK",
+        year: "2026",
+        credit: "PRODUCER / ALL INSTRUMENTS",
+        status: "ARCHIVED",
+        desc: "Composition, arrangement, and acoustic instrumental layering on 솔직히 나는.",
+        bg: "#121214"
+      },
+      {
+        id: "003",
+        title: "skip",
+        artist: "145oo404",
+        project: "ARCHIVE RELEASE",
+        format: "TRACK",
+        year: "2026",
+        credit: "SYNTHESIZER / ARRANGEMENT",
+        status: "ARCHIVED",
+        desc: "Experimental beat design, synthesizer programming, and sound textures on skip.",
+        bg: "#1a1a1d"
+      },
+      {
+        id: "004",
+        title: "못됐어",
+        artist: "145oo404",
+        project: "ARCHIVE RELEASE",
+        format: "TRACK",
+        year: "2026",
+        credit: "PRODUCER / KEYBOARDS",
+        status: "ARCHIVED",
+        desc: "Track directing, melodic harmonization, and keyboard session work on 못됐어.",
+        bg: "#141416"
+      }
+    ];
+
+    function loadTrack(index) {
+      const t = tracks[index];
+      
+      document.getElementById('doc-id').innerText = `DOCUMENT / ${t.id}`;
+      document.getElementById('doc-title').innerText = t.title;
+      document.getElementById('meta-artist').innerText = t.artist;
+      document.getElementById('meta-project').innerText = t.project;
+      document.getElementById('meta-format').innerText = t.format;
+      document.getElementById('meta-year').innerText = t.year;
+      document.getElementById('meta-credit').innerText = t.credit;
+      document.getElementById('meta-status').innerText = t.status;
+      document.getElementById('doc-desc').innerText = t.desc;
+      document.getElementById('doc-record').innerText = `[ RECORD ${t.id} / 004 ]`;
+
+      const artwork = document.getElementById('doc-artwork');
+      artwork.style.backgroundColor = t.bg;
+      document.getElementById('art-id').innerText = `REC_${t.id}`;
+      document.getElementById('art-title').innerText = t.title;
+      document.getElementById('art-format').innerText = `${t.format} / ${t.year}`;
+
+      const rows = document.querySelectorAll('.entry-row');
+      rows.forEach((row, i) => {
+        if(i === index) {
+          row.classList.add('active');
+        } else {
+          row.classList.remove('active');
+        }
+      });
+    }
+
+    function switchTab(tab) {
+      const indexTab = document.getElementById('tab-index');
+      const aboutTab = document.getElementById('tab-about');
+      const navIndex = document.getElementById('nav-index');
+      const navAbout = document.getElementById('nav-about');
+
+      if (tab === 'about') {
+        indexTab.classList.remove('active');
+        aboutTab.classList.add('active');
+        navIndex.classList.remove('active');
+        navAbout.classList.add('active');
+      } else {
+        aboutTab.classList.remove('active');
+        indexTab.classList.add('active');
+        navAbout.classList.remove('active');
+        navIndex.classList.add('active');
+      }
+    }
+  </script>
+
+</body>
+</html>
